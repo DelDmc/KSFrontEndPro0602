@@ -1,4 +1,4 @@
-let numOrStr = prompt('input number or string');
+let numOrStr = prompt('input number or string').trim();
 console.log(numOrStr);
 
 switch(numOrStr) {
