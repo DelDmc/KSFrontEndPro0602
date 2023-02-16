@@ -1,34 +1,49 @@
-const userYearOfBirth = prompt("Enter your year of birth: ");
-const userCity = prompt("Enter city you are living: ");
-const userSport = prompt("Enter sport you're fond of: ");
-let userAge = new Date().getFullYear() - userYearOfBirth;
+let userBirthMessage;
+let userCityMessage;
+let userSportMessage;
 
-let champion = {
+const countryCapital = {
+    kyiv: "Ukraine",
+    london: "Great Britain",
+    washington: "USA",
+};
+
+const champion = {
     basketball: "Michael Jordan",
     football: "Lionel Messi",
     tennis: "Roger Federer"
 };
 
-let userBirthMessage = userYearOfBirth !== null ? 
-                       `You're ${userAge} years old\n` : 
-                       `( You did not share year of birth\n`;
+const userYearOfBirth = prompt("Enter your year of birth: ");
+const userCity = prompt("Enter city you are living: ");
+const userSport = prompt("Enter sport you're fond of: ");
 
-let userCityMessage = userCity !== null ? 
-                      userCity.toLowerCase() === "kyiv" || 
-                      userCity.toLowerCase() === "london" || 
-                      userCity.toLowerCase() === "washington" ?
-                      `You're living in the capital called ${userCity}\n` :
-                      `You're living in the city called ${userCity}\n`:
-                      `:( You did not share your city\n`;
+if (userYearOfBirth === null || 
+    userYearOfBirth >= new Date().getFullYear() || 
+    isNaN(userYearOfBirth) ||
+    userYearOfBirth.trim() === ""){
+        userBirthMessage = `:( You did not share year of birth`;
+} else {
+    let userAge = new Date().getFullYear() - userYearOfBirth;
+    userBirthMessage = `You're ${userAge} years old`;
+}
 
-let userSportMessage = userSport !== null ?
-                       champion[userSport.toLowerCase()]?
-                       `Cool! Wanna be like ${champion[userSport.toLowerCase()]}?` :
-                       `Your favourite sport is ${userSport}`:
-                       `:( You did not share your favourite sport`;
+if (userCity === null || userCity.trim() === ""){
+    userCityMessage = ":( You did not share your city";
+} else {
+    let country = countryCapital[userCity.trim().toLowerCase()];
+        userCityMessage = country ? `You're living in ${userCity.trim()}, the capital of ${country}` :
+                                    `You're living in the city called ${userCity.trim()}`;
+    }
 
-let userFinalMessage = userBirthMessage.concat(userCityMessage, userSportMessage);
+if (userSport === null || userSport.trim() === ""){
+    userSportMessage = ":( You did not share your favourite sport";
+} else {
+    let championName = champion[userSport.trim().toLowerCase()];
+    userSportMessage = championName ? `Cool! Wanna be like ${championName}?` :
+                                      `Your favourite sport is ${userSport.trim()}`;
+    }
+
+let userFinalMessage = `${userBirthMessage}\n${userCityMessage}\n${userSportMessage}`;
 
 alert(userFinalMessage);
-
-
